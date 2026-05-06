@@ -2,17 +2,37 @@
 
 Fast, accurate fitness calculators. Next.js 14 (App Router) + Tailwind + a hand-rolled shadcn-style UI layer. No database, no auth — just pure client-side math, statically prerendered for instant loads and SEO.
 
-## Live calculators
+## Live features (all 25)
 
-| Route | What it does |
-|---|---|
-| `/calculator/bmi` | Body mass index + WHO category bands |
-| `/calculator/tdee` | BMR (Mifflin-St Jeor) + TDEE + cut/bulk targets |
-| `/calculator/macros` | Daily protein / carbs / fat for cut, maintain, bulk |
-| `/calculator/one-rep-max` | Epley + Brzycki 1RM + working-set % table |
-| `/calculator/body-fat` | US Navy tape-measure body fat % |
+**Tier 1 · Calculators** — pure client-side math, statically prerendered:
+`/calculator/bmi`, `tdee`, `macros`, `one-rep-max`, `body-fat`,
+`calories-burned`, `water-intake`, `protein-intake`, `ideal-weight`,
+`lean-mass`, `pace`, `heart-rate-zones`, `plate-loading`, `wilks`,
+`recomp-timeline`.
 
-The homepage (`/`) lists the full 25-feature roadmap, with the 5 above linkable and the rest marked "soon".
+**Tier 2 · Tools** — stateful, localStorage-backed:
+`/tools/interval-timer`, `/tools/rest-timer`, `/tools/overload`,
+`/library`, `/programs`.
+
+**Tier 3 · AI** (require `ANTHROPIC_API_KEY` env var, see below):
+`/ai/workout`, `/ai/meal-plan`, `/ai/substitution`, `/ai/form-coach` (vision).
+
+**Tier 4 · Journal** — localStorage workout log + streak tracking:
+`/journal`. Cloud sync deferred.
+
+## AI features setup
+
+The four `/ai/*` routes call Anthropic's Messages API. They degrade
+gracefully — the page loads and shows a helpful error if the key is
+missing. To enable:
+
+1. Get an API key from https://console.anthropic.com
+2. In Vercel: Project → Settings → Environment Variables → add
+   `ANTHROPIC_API_KEY`
+3. Redeploy (or just push a commit)
+
+Locally: create `.env.local` with `ANTHROPIC_API_KEY=sk-ant-…` and
+restart `npm run dev`.
 
 ## Local dev
 
