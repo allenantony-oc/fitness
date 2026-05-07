@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField, type InputMode } from "@/components/validated-field";
 import {
   ACTIVITY_LABELS,
   ACTIVITY_MULTIPLIERS,
@@ -86,17 +85,17 @@ export default function MacrosPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <Field label="Age" value={age} onChange={setAge} />
+            <Field label="Age" value={age} onChange={setAge} min={5} max={120} inputMode="numeric" />
             {unit === "metric" ? (
               <>
-                <Field label="Height (cm)" value={heightCm} onChange={setHeightCm} />
-                <Field label="Weight (kg)" value={weightKg} onChange={setWeightKg} />
+                <Field label="Height (cm)" value={heightCm} onChange={setHeightCm} min={100} max={250} />
+                <Field label="Weight (kg)" value={weightKg} onChange={setWeightKg} min={20} max={300} />
               </>
             ) : (
               <>
-                <Field label="Height (ft)" value={feet} onChange={setFeet} />
-                <Field label="Height (in)" value={inches} onChange={setInches} />
-                <Field label="Weight (lb)" value={pounds} onChange={setPounds} />
+                <Field label="Height (ft)" value={feet} onChange={setFeet} min={3} max={8} inputMode="numeric" />
+                <Field label="Height (in)" value={inches} onChange={setInches} min={0} max={11} />
+                <Field label="Weight (lb)" value={pounds} onChange={setPounds} min={44} max={660} />
               </>
             )}
           </div>
@@ -216,20 +215,25 @@ function Field({
   label,
   value,
   onChange,
+  min,
+  max,
+  inputMode,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
+  min?: number;
+  max?: number;
+  inputMode?: InputMode;
 }) {
   return (
-    <div className="space-y-2">
-      <Label>{label}</Label>
-      <Input
-        type="number"
-        inputMode="decimal"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
+    <ValidatedField
+      label={label}
+      value={value}
+      onChange={onChange}
+      min={min}
+      max={max}
+      inputMode={inputMode}
+    />
   );
 }

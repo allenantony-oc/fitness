@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField } from "@/components/validated-field";
 import {
   dotsScore,
   strengthLevel,
@@ -75,44 +74,36 @@ export default function WilksPage() {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label>Bodyweight ({unit})</Label>
-            <Input
-              type="number"
-              inputMode="decimal"
-              value={bodyweight}
-              onChange={(e) => setBodyweight(e.target.value)}
-            />
-          </div>
+          <ValidatedField
+            label={`Bodyweight (${unit})`}
+            value={bodyweight}
+            onChange={setBodyweight}
+            min={unit === "kg" ? 30 : 66}
+            max={unit === "kg" ? 200 : 440}
+          />
 
           <div className="grid grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label>Squat ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={squat}
-                onChange={(e) => setSquat(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Bench ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={bench}
-                onChange={(e) => setBench(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Deadlift ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={deadlift}
-                onChange={(e) => setDeadlift(e.target.value)}
-              />
-            </div>
+            <ValidatedField
+              label={`Squat (${unit})`}
+              value={squat}
+              onChange={setSquat}
+              min={1}
+              max={unit === "kg" ? 500 : 1100}
+            />
+            <ValidatedField
+              label={`Bench (${unit})`}
+              value={bench}
+              onChange={setBench}
+              min={1}
+              max={unit === "kg" ? 500 : 1100}
+            />
+            <ValidatedField
+              label={`Deadlift (${unit})`}
+              value={deadlift}
+              onChange={setDeadlift}
+              min={1}
+              max={unit === "kg" ? 500 : 1100}
+            />
           </div>
         </CardContent>
       </Card>

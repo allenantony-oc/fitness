@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField, type InputMode } from "@/components/validated-field";
 import {
   ONE_RM_PERCENT_TABLE,
   oneRepMaxBrzycki,
@@ -54,8 +53,17 @@ export default function OneRmPage() {
               label={`Weight lifted (${unit})`}
               value={weight}
               onChange={setWeight}
+              min={1}
+              max={unit === "kg" ? 500 : 1100}
             />
-            <Field label="Reps performed" value={reps} onChange={setReps} />
+            <Field
+              label="Reps performed"
+              value={reps}
+              onChange={setReps}
+              min={1}
+              max={36}
+              inputMode="numeric"
+            />
           </div>
           <p className="text-xs text-muted-foreground">
             Estimates are most accurate at 1–10 reps. Above 10 reps, fatigue
@@ -127,20 +135,25 @@ function Field({
   label,
   value,
   onChange,
+  min,
+  max,
+  inputMode,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
+  min?: number;
+  max?: number;
+  inputMode?: InputMode;
 }) {
   return (
-    <div className="space-y-2">
-      <Label>{label}</Label>
-      <Input
-        type="number"
-        inputMode="decimal"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
+    <ValidatedField
+      label={label}
+      value={value}
+      onChange={onChange}
+      min={min}
+      max={max}
+      inputMode={inputMode}
+    />
   );
 }

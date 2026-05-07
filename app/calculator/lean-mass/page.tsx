@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField } from "@/components/validated-field";
 import { leanMass, type Sex } from "@/lib/calculators";
 
 type Unit = "metric" | "imperial";
@@ -75,54 +74,45 @@ export default function LeanMassPage() {
 
           {unit === "metric" ? (
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>Height (cm)</Label>
-                <Input
-                  type="number"
-                  inputMode="decimal"
-                  value={heightCm}
-                  onChange={(e) => setHeightCm(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Weight (kg)</Label>
-                <Input
-                  type="number"
-                  inputMode="decimal"
-                  value={weightKg}
-                  onChange={(e) => setWeightKg(e.target.value)}
-                />
-              </div>
+              <ValidatedField
+                label="Height (cm)"
+                value={heightCm}
+                onChange={setHeightCm}
+                min={100}
+                max={250}
+              />
+              <ValidatedField
+                label="Weight (kg)"
+                value={weightKg}
+                onChange={setWeightKg}
+                min={20}
+                max={300}
+              />
             </div>
           ) : (
             <div className="grid grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label>Height (ft)</Label>
-                <Input
-                  type="number"
-                  inputMode="numeric"
-                  value={feet}
-                  onChange={(e) => setFeet(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Height (in)</Label>
-                <Input
-                  type="number"
-                  inputMode="decimal"
-                  value={inches}
-                  onChange={(e) => setInches(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Weight (lb)</Label>
-                <Input
-                  type="number"
-                  inputMode="decimal"
-                  value={pounds}
-                  onChange={(e) => setPounds(e.target.value)}
-                />
-              </div>
+              <ValidatedField
+                label="Height (ft)"
+                value={feet}
+                onChange={setFeet}
+                min={3}
+                max={8}
+                inputMode="numeric"
+              />
+              <ValidatedField
+                label="Height (in)"
+                value={inches}
+                onChange={setInches}
+                min={0}
+                max={11}
+              />
+              <ValidatedField
+                label="Weight (lb)"
+                value={pounds}
+                onChange={setPounds}
+                min={44}
+                max={660}
+              />
             </div>
           )}
         </CardContent>

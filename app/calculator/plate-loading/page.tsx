@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField } from "@/components/validated-field";
 import {
   STANDARD_PLATES_KG,
   STANDARD_PLATES_LB,
@@ -66,24 +65,20 @@ export default function PlateLoadingPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Target weight ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={target}
-                onChange={(e) => setTarget(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Bar weight ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={bar}
-                onChange={(e) => setBar(e.target.value)}
-              />
-            </div>
+            <ValidatedField
+              label={`Target weight (${unit})`}
+              value={target}
+              onChange={setTarget}
+              min={unit === "kg" ? 10 : 22}
+              max={unit === "kg" ? 500 : 1100}
+            />
+            <ValidatedField
+              label={`Bar weight (${unit})`}
+              value={bar}
+              onChange={setBar}
+              min={unit === "kg" ? 10 : 20}
+              max={unit === "kg" ? 50 : 110}
+            />
           </div>
         </CardContent>
       </Card>

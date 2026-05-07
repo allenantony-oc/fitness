@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField } from "@/components/validated-field";
 import { caloriesBurned } from "@/lib/calculators";
 import { ACTIVITIES, CATEGORY_LABELS, type Activity } from "@/lib/met-values";
 
@@ -63,24 +62,21 @@ export default function CaloriesBurnedPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Weight ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Duration (min)</Label>
-              <Input
-                type="number"
-                inputMode="numeric"
-                value={minutes}
-                onChange={(e) => setMinutes(e.target.value)}
-              />
-            </div>
+            <ValidatedField
+              label={`Weight (${unit})`}
+              value={weight}
+              onChange={setWeight}
+              min={unit === "kg" ? 20 : 44}
+              max={unit === "kg" ? 300 : 660}
+            />
+            <ValidatedField
+              label="Duration (min)"
+              value={minutes}
+              onChange={setMinutes}
+              min={1}
+              max={720}
+              inputMode="numeric"
+            />
           </div>
 
           <div className="space-y-2">

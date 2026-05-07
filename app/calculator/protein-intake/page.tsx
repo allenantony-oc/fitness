@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField } from "@/components/validated-field";
 import {
   PROTEIN_GOAL_LABELS,
   PROTEIN_GRAMS_PER_KG,
@@ -58,15 +57,13 @@ export default function ProteinIntakePage() {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label>Weight ({unit})</Label>
-            <Input
-              type="number"
-              inputMode="decimal"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-            />
-          </div>
+          <ValidatedField
+            label={`Weight (${unit})`}
+            value={weight}
+            onChange={setWeight}
+            min={unit === "kg" ? 20 : 44}
+            max={unit === "kg" ? 300 : 660}
+          />
 
           <div className="space-y-2">
             <Label>Goal</Label>
