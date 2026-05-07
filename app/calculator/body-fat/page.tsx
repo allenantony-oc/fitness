@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -100,21 +100,26 @@ export default function BodyFatPage() {
       </Card>
 
       {result && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <StatPill
-            label="Body fat"
-            value={`${result.pct.toFixed(1)}%`}
-            accent
-          />
-          <div className="rounded-xl border border-border/60 bg-card p-5">
-            <div className="text-xs uppercase tracking-wider text-muted-foreground">
-              Classification
-            </div>
-            <div className="mt-2 text-3xl font-bold text-emerald-400">
-              {result.category}
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <StatPill
+              label="Body fat"
+              value={`${result.pct.toFixed(1)}%`}
+              accent
+            />
+            <div className="rounded-xl border border-border/60 bg-card p-5">
+              <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                Classification
+              </div>
+              <div className="mt-2 text-3xl font-bold text-emerald-400">
+                {result.category}
+              </div>
             </div>
           </div>
-        </div>
+          <ResultActions
+            text={`Body fat: ${result.pct.toFixed(1)}% (${result.category})`}
+          />
+        </>
       )}
     </CalculatorShell>
   );

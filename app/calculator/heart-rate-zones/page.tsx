@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -117,6 +117,14 @@ export default function HeartRateZonesPage() {
               </div>
             </CardContent>
           </Card>
+          <ResultActions
+            text={[
+              `Max HR: ${result.maxHr} bpm | HRR: ${result.maxHr - result.restingHr} bpm`,
+              ...result.zones.map(
+                (z) => `${z.name}: ${z.hrLow}–${z.hrHigh} bpm (${z.pctLow}–${z.pctHigh}% HRR)`,
+              ),
+            ].join("\n")}
+          />
         </>
       )}
     </CalculatorShell>

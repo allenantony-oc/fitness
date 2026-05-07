@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -179,6 +179,9 @@ export default function PacePage() {
               </div>
             </CardContent>
           </Card>
+          <ResultActions
+            text={`Pace: ${formatPace(result.secPerKm, unit)} | Time: ${formatTime(result.time)} | Distance: ${(result.km / (unit === "km" ? 1 : 1.609344)).toFixed(2)} ${unit}`}
+          />
         </>
       )}
     </CalculatorShell>

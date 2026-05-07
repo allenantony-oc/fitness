@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -108,19 +108,24 @@ export default function CaloriesBurnedPage() {
       </Card>
 
       {result && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <StatPill
-            label="Total burn"
-            value={`${result.kcal.toLocaleString()} kcal`}
-            hint={`for ${minutes} min`}
-            accent
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <StatPill
+              label="Total burn"
+              value={`${result.kcal.toLocaleString()} kcal`}
+              hint={`for ${minutes} min`}
+              accent
+            />
+            <StatPill
+              label="Per hour"
+              value={`${result.perHour.toLocaleString()} kcal`}
+              hint="continuous rate"
+            />
+          </div>
+          <ResultActions
+            text={`Calories burned: ${result.kcal.toLocaleString()} kcal for ${minutes} min | ${result.perHour.toLocaleString()} kcal/hr (${activitySlug})`}
           />
-          <StatPill
-            label="Per hour"
-            value={`${result.perHour.toLocaleString()} kcal`}
-            hint="continuous rate"
-          />
-        </div>
+        </>
       )}
 
       <Card>

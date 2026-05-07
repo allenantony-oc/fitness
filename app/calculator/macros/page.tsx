@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -164,6 +164,12 @@ export default function MacrosPage() {
               color="bg-rose-500"
             />
           </div>
+          <ResultActions
+            text={[
+              `Daily target: ${result.calories.toLocaleString()} kcal`,
+              `Protein: ${result.proteinG}g | Carbs: ${result.carbsG}g | Fat: ${result.fatG}g`,
+            ].join("\n")}
+          />
         </>
       )}
     </CalculatorShell>

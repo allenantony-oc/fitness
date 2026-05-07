@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -99,24 +99,35 @@ export default function IdealWeightPage() {
       </Card>
 
       {result && (
-        <Card>
-          <CardContent className="pt-6">
-            <div className="mb-4 text-sm font-medium text-muted-foreground">
-              Estimates
-            </div>
-            <div className="space-y-3">
-              <Row name="Devine (1974)" value={fmt(result.devine)} hint="Used clinically for drug dosing" />
-              <Row name="Robinson (1983)" value={fmt(result.robinson)} hint="Modernised Devine" />
-              <Row name="Hamwi (1964)" value={fmt(result.hamwi)} hint="The original quick formula" />
-              <Row
-                name="WHO healthy BMI range"
-                value={`${fmt(result.bmiLow)} – ${fmt(result.bmiHigh)}`}
-                hint="BMI 18.5–24.9 — most evidence-based of the four"
-                accent
-              />
-            </div>
-          </CardContent>
-        </Card>
+        <>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="mb-4 text-sm font-medium text-muted-foreground">
+                Estimates
+              </div>
+              <div className="space-y-3">
+                <Row name="Devine (1974)" value={fmt(result.devine)} hint="Used clinically for drug dosing" />
+                <Row name="Robinson (1983)" value={fmt(result.robinson)} hint="Modernised Devine" />
+                <Row name="Hamwi (1964)" value={fmt(result.hamwi)} hint="The original quick formula" />
+                <Row
+                  name="WHO healthy BMI range"
+                  value={`${fmt(result.bmiLow)} – ${fmt(result.bmiHigh)}`}
+                  hint="BMI 18.5–24.9 — most evidence-based of the four"
+                  accent
+                />
+              </div>
+            </CardContent>
+          </Card>
+          <ResultActions
+            text={[
+              `Ideal Weight Estimates`,
+              `Devine (1974): ${fmt(result.devine)}`,
+              `Robinson (1983): ${fmt(result.robinson)}`,
+              `Hamwi (1964): ${fmt(result.hamwi)}`,
+              `WHO healthy BMI range: ${fmt(result.bmiLow)} – ${fmt(result.bmiHigh)}`,
+            ].join("\n")}
+          />
+        </>
       )}
 
       <Card>

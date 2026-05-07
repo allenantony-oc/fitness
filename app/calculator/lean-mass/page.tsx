@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -151,6 +151,12 @@ export default function LeanMassPage() {
               </div>
             </CardContent>
           </Card>
+          <ResultActions
+            text={[
+              `Lean mass (avg): ${fmt(result.avg)} | Body fat: ${result.fatPct.toFixed(1)}% (${fmt(result.fatKg)})`,
+              `Boer: ${fmt(result.lm.boer)} | James: ${fmt(result.lm.james)} | Hume: ${fmt(result.lm.hume)}`,
+            ].join("\n")}
+          />
         </>
       )}
 

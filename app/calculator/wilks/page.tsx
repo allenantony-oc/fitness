@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -156,6 +156,12 @@ export default function WilksPage() {
               </div>
             </CardContent>
           </Card>
+          <ResultActions
+            text={[
+              `SBD total: ${result.total.toLocaleString()} ${unit} | Wilks: ${result.wilks.toFixed(1)} | DOTS: ${result.dots.toFixed(1)}`,
+              `Level: ${result.level}`,
+            ].join("\n")}
+          />
         </>
       )}
     </CalculatorShell>

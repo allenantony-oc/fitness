@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -161,6 +161,12 @@ export default function TdeePage() {
               hint="lean mass gain"
             />
           </div>
+          <ResultActions
+            text={[
+              `BMR: ${result.bmr.toLocaleString()} kcal | TDEE: ${result.tdee.toLocaleString()} kcal`,
+              `Cut (−500): ${result.cut.toLocaleString()} kcal | Maintain: ${result.tdee.toLocaleString()} kcal | Bulk (+300): ${result.bulk.toLocaleString()} kcal`,
+            ].join("\n")}
+          />
         </>
       )}
     </CalculatorShell>
