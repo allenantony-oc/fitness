@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -111,6 +111,12 @@ export default function OneRmPage() {
               </p>
             </CardContent>
           </Card>
+          <ResultActions
+            text={[
+              `1RM Estimates (${weight} ${unit} × ${reps} reps)`,
+              `Epley: ${Math.round(result.epley)} ${unit} | Brzycki: ${Math.round(result.brzycki)} ${unit} | Average: ${Math.round(result.avg)} ${unit}`,
+            ].join("\n")}
+          />
         </>
       )}
     </CalculatorShell>

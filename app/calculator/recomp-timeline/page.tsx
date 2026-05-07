@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -130,6 +130,13 @@ export default function RecompTimelinePage() {
               </div>
             </CardContent>
           </Card>
+          <ResultActions
+            text={[
+              `Weeks to goal: ${result.weeks.toFixed(1)} (~${Math.round(result.weeks / 4.345)} months)`,
+              `Weekly change: ${result.weeklyChangeDisplay > 0 ? "+" : ""}${result.weeklyChangeDisplay.toFixed(2)} ${unit}`,
+              `Target date: ${result.targetDate.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}`,
+            ].join("\n")}
+          />
         </>
       )}
     </CalculatorShell>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -107,6 +107,9 @@ export default function WaterIntakePage() {
               value={`${Math.round(result.ozFl)} fl oz`}
             />
           </div>
+          <ResultActions
+            text={`Daily water: ${result.liters.toFixed(2)} L (${result.ml.toLocaleString()} ml) | ${result.cups.toFixed(1)} cups | ${Math.round(result.ozFl)} fl oz`}
+          />
         </>
       )}
 

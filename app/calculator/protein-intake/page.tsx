@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -112,6 +112,9 @@ export default function ProteinIntakePage() {
               value={`${result.kcal.toLocaleString()} kcal`}
             />
           </div>
+          <ResultActions
+            text={`Daily protein: ${result.lowG}–${result.highG}g (midpoint ${result.midG}g) | ~${result.perMeal4}g per meal × 4 | ${result.kcal.toLocaleString()} kcal from protein`}
+          />
         </>
       )}
 

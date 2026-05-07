@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -93,6 +93,7 @@ export default function PlateLoadingPage() {
           <Card>
             <CardContent className="pt-6">
               <Barbell breakdown={result.perSide} unit={unit} />
+
               <div className="mt-4 grid grid-cols-2 gap-4 text-center sm:grid-cols-3">
                 <div className="rounded-md border border-border/40 bg-card/50 p-3">
                   <div className="text-xs text-muted-foreground">Loaded</div>
@@ -151,6 +152,14 @@ export default function PlateLoadingPage() {
               )}
             </CardContent>
           </Card>
+          <ResultActions
+            text={[
+              `Plate Loading: ${result.loadable.toFixed(2)} ${unit} loaded | Per side: ${((result.loadable - parseFloat(bar)) / 2).toFixed(2)} ${unit} | Short by: ${result.remainder.toFixed(2)} ${unit}`,
+              result.perSide.length === 0
+                ? "Just the bar — no plates needed"
+                : `Plates per side: ${result.perSide.map((p) => `${p.plate} ${unit} × ${p.count}`).join(", ")}`,
+            ].join("\n")}
+          />
         </>
       )}
     </CalculatorShell>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell, StatPill } from "@/components/calculator-shell";
+import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -89,24 +89,29 @@ export default function BmiPage() {
       </Card>
 
       {result && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <StatPill
-            label="BMI"
-            value={result.value.toFixed(1)}
-            hint="kg / m²"
-            accent
-          />
-          <div className="rounded-xl border border-border/60 bg-card p-5">
-            <div className="text-xs uppercase tracking-wider text-muted-foreground">
-              Category
-            </div>
-            <div
-              className={`mt-2 text-3xl font-bold ${CATEGORY_COLORS[result.category]}`}
-            >
-              {result.category}
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <StatPill
+              label="BMI"
+              value={result.value.toFixed(1)}
+              hint="kg / m²"
+              accent
+            />
+            <div className="rounded-xl border border-border/60 bg-card p-5">
+              <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                Category
+              </div>
+              <div
+                className={`mt-2 text-3xl font-bold ${CATEGORY_COLORS[result.category]}`}
+              >
+                {result.category}
+              </div>
             </div>
           </div>
-        </div>
+          <ResultActions
+            text={`BMI: ${result.value.toFixed(1)} kg/m² (${result.category})`}
+          />
+        </>
       )}
 
       <Card>
