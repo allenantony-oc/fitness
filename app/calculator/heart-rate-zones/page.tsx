@@ -3,8 +3,7 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { ValidatedField } from "@/components/validated-field";
 import { heartRateZones } from "@/lib/calculators";
 
 const ZONE_COLORS = [
@@ -38,24 +37,22 @@ export default function HeartRateZonesPage() {
       <Card>
         <CardContent className="space-y-5 pt-6">
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Age</Label>
-              <Input
-                type="number"
-                inputMode="numeric"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Resting heart rate (bpm)</Label>
-              <Input
-                type="number"
-                inputMode="numeric"
-                value={resting}
-                onChange={(e) => setResting(e.target.value)}
-              />
-            </div>
+            <ValidatedField
+              label="Age"
+              value={age}
+              onChange={setAge}
+              min={10}
+              max={100}
+              inputMode="numeric"
+            />
+            <ValidatedField
+              label="Resting heart rate (bpm)"
+              value={resting}
+              onChange={setResting}
+              min={30}
+              max={120}
+              inputMode="numeric"
+            />
           </div>
           <p className="text-xs text-muted-foreground">
             Measure resting HR first thing in the morning, before getting out

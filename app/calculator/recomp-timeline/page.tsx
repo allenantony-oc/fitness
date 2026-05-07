@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField } from "@/components/validated-field";
 import { recompTimeline } from "@/lib/calculators";
 
 type Unit = "kg" | "lb";
@@ -58,35 +57,29 @@ export default function RecompTimelinePage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Current weight ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={current}
-                onChange={(e) => setCurrent(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Goal weight ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={goal}
-                onChange={(e) => setGoal(e.target.value)}
-              />
-            </div>
+            <ValidatedField
+              label={`Current weight (${unit})`}
+              value={current}
+              onChange={setCurrent}
+              min={unit === "kg" ? 20 : 44}
+              max={unit === "kg" ? 300 : 660}
+            />
+            <ValidatedField
+              label={`Goal weight (${unit})`}
+              value={goal}
+              onChange={setGoal}
+              min={unit === "kg" ? 20 : 44}
+              max={unit === "kg" ? 300 : 660}
+            />
           </div>
 
           <div className="space-y-2">
-            <Label>
-              Daily calorie delta (− deficit / + surplus)
-            </Label>
-            <Input
-              type="number"
-              inputMode="decimal"
+            <ValidatedField
+              label="Daily calorie delta (− deficit / + surplus)"
               value={deltaKcal}
-              onChange={(e) => setDeltaKcal(e.target.value)}
+              onChange={setDeltaKcal}
+              min={-2000}
+              max={2000}
             />
             <p className="text-xs text-muted-foreground">
               −500 kcal/day ≈ 1 lb/week loss. Sustainable cuts: −300 to −750.

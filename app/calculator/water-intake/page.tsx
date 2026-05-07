@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField } from "@/components/validated-field";
 import { waterIntakeMl } from "@/lib/calculators";
 
 type Unit = "kg" | "lb";
@@ -52,24 +51,21 @@ export default function WaterIntakePage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Weight ({unit})</Label>
-              <Input
-                type="number"
-                inputMode="decimal"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Daily training (min)</Label>
-              <Input
-                type="number"
-                inputMode="numeric"
-                value={trainingMin}
-                onChange={(e) => setTrainingMin(e.target.value)}
-              />
-            </div>
+            <ValidatedField
+              label={`Weight (${unit})`}
+              value={weight}
+              onChange={setWeight}
+              min={unit === "kg" ? 20 : 44}
+              max={unit === "kg" ? 300 : 660}
+            />
+            <ValidatedField
+              label="Daily training (min)"
+              value={trainingMin}
+              onChange={setTrainingMin}
+              min={0}
+              max={720}
+              inputMode="numeric"
+            />
           </div>
 
           <label className="flex items-center gap-3 rounded-md border border-border/60 bg-card p-3 text-sm cursor-pointer hover:bg-accent">

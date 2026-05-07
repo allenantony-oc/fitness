@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
+import { ValidatedField } from "@/components/validated-field";
 import { bodyFatCategory, bodyFatNavy, type Sex } from "@/lib/calculators";
 
 type Unit = "metric" | "imperial";
@@ -73,20 +73,20 @@ export default function BodyFatPage() {
 
           {unit === "metric" ? (
             <div className="grid grid-cols-2 gap-4">
-              <Field label="Height (cm)" value={heightCm} onChange={setHeightCm} />
-              <Field label="Neck (cm)" value={neckCm} onChange={setNeckCm} />
-              <Field label="Waist (cm)" value={waistCm} onChange={setWaistCm} />
+              <Field label="Height (cm)" value={heightCm} onChange={setHeightCm} min={100} max={250} />
+              <Field label="Neck (cm)" value={neckCm} onChange={setNeckCm} min={20} max={60} />
+              <Field label="Waist (cm)" value={waistCm} onChange={setWaistCm} min={40} max={200} />
               {sex === "female" && (
-                <Field label="Hip (cm)" value={hipCm} onChange={setHipCm} />
+                <Field label="Hip (cm)" value={hipCm} onChange={setHipCm} min={50} max={200} />
               )}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4">
-              <Field label="Height (in)" value={heightIn} onChange={setHeightIn} />
-              <Field label="Neck (in)" value={neckIn} onChange={setNeckIn} />
-              <Field label="Waist (in)" value={waistIn} onChange={setWaistIn} />
+              <Field label="Height (in)" value={heightIn} onChange={setHeightIn} min={36} max={96} />
+              <Field label="Neck (in)" value={neckIn} onChange={setNeckIn} min={8} max={24} />
+              <Field label="Waist (in)" value={waistIn} onChange={setWaistIn} min={16} max={79} />
               {sex === "female" && (
-                <Field label="Hip (in)" value={hipIn} onChange={setHipIn} />
+                <Field label="Hip (in)" value={hipIn} onChange={setHipIn} min={20} max={79} />
               )}
             </div>
           )}
@@ -129,20 +129,16 @@ function Field({
   label,
   value,
   onChange,
+  min,
+  max,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
+  min?: number;
+  max?: number;
 }) {
   return (
-    <div className="space-y-2">
-      <Label>{label}</Label>
-      <Input
-        type="number"
-        inputMode="decimal"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
+    <ValidatedField label={label} value={value} onChange={onChange} min={min} max={max} />
   );
 }
