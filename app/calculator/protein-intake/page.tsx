@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions, StatPill } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { UnitToggle } from "@/components/unit-toggle";
+import { Label } from "@/components/ui/label";
 import { ValidatedField } from "@/components/validated-field";
 import {
   PROTEIN_GOAL_LABELS,

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell, ResultActions } from "@/components/calculator-shell";
 import { Card, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { UnitToggle } from "@/components/unit-toggle";
 import { ValidatedField } from "@/components/validated-field";
 import { idealWeights, type Sex } from "@/lib/calculators";
